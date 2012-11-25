@@ -10,7 +10,6 @@ import java.util.Map;
  * Created by IntelliJ IDEA.
  * User: sureshsharma
  * Date: 25/11/2012
- * Time: 18:16
  * To change this template use File | Settings | File Templates.
  */
 public class ConversationalClockImpl implements ConversationalClock {
@@ -22,7 +21,13 @@ public class ConversationalClockImpl implements ConversationalClock {
 
     public String getConversationalTime(String numericTime) {
         String conversationalTime = "";
-        DateTime time = DateTime.parse(numericTime, DateTimeFormat.forPattern("HH:mm"));
+        DateTime time = null;
+        try{
+            time = DateTime.parse(numericTime, DateTimeFormat.forPattern("HH:mm"));
+        }
+        catch (IllegalArgumentException e){
+            throw new IllegalArgumentException("Time invalid is in invalid format, please enter time in HH:mm format.");
+        }
 
         String prefixText = "";
         String nearestDial = "";
